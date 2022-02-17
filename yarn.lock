@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@3sidedcube/prettier-config@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@3sidedcube/prettier-config/-/prettier-config-1.0.0.tgz#3185b314c554ef74aa82c71b08a9c197bd2d9a64"
+  integrity sha512-4bVS3tyfJ3ju9V9F4k0kx+xww7tqjC5MP95X170F4qIagCGquXbUse55XakgP7QDoWilbrPnnFk+B+1bj2wswQ==
+
 "@ampproject/remapping@^2.1.0":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.1.2.tgz#4edca94973ded9630d20101cd8559cedb8d8bd34"

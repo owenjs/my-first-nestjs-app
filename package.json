@@ -29,6 +29,7 @@
     "rxjs": "^7.2.0"
   },
   "devDependencies": {
+    "@3sidedcube/prettier-config": "^1.0.0",
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
@@ -51,6 +52,7 @@
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   },
+  "prettier": "@3sidedcube/prettier-config",
   "jest": {
     "moduleFileExtensions": [
       "js",
