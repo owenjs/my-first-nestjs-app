@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: "dev"
+    volumes:
+      - ./src:/app/src
+      - ./test:/app/test
+      - ./ormconfig.ts:/app/ormconfig.ts
+    depends_on:
+      - db
+    command: yarn run start:dev
+
+  db:
+    image: mysql:8.0
+    restart: always
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - '3306:3306'
+    volumes:
+      - database-data:/var/lib/mysql
+
+volumes:
+  database-data:
