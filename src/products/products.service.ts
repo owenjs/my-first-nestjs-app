@@ -1,52 +1,50 @@
 import { Injectable } from "@nestjs/common";
-import { Product } from "./products.model";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { Product } from "./product.entity";
 
 @Injectable()
 export class ProductsService {
-  private products: Product[] = [];
+  constructor(@InjectRepository(Product) private productsRepository: Repository<Product>) {}
 
-  create(name: string): string {
-    const product = new Product(Math.random().toString(), name);
+  create(name: string): Promise<Product> {
+    const newProduct = this.productsRepository.create({ name });
 
-    this.products.push(product);
-
-    return product.id;
+    return this.productsRepository.save(newProduct);
   }
 
-  update(id: string, name: string) {
-    const [product, index] = this.findProduct(id);
+  async update(id: string, name: string): Promise<Product> {
+    const product = await this.find(id);
 
-    if (index === -1) return undefined;
+    if (!product) {
+      return undefined;
+    }
 
-    this.products[index] = {
-      ...product,
-      name: name || product.name
-    };
+    product.name = name || product.name;
 
-    return {
-      ...this.products[index]
-    };
+    return this.productsRepository.save(product);
   }
 
-  delete(id: string) {
-    const [, index] = this.findProduct(id);
+  async delete(id: string): Promise<Product> {
+    const product = await this.find(id);
 
-    return index !== -1 ? this.products.splice(index, 1) : undefined;
+    if (!product) {
+      return undefined;
+    }
+
+    return this.productsRepository.remove(product);
   }
 
-  find(id: string) {
-    const [product, index] = this.findProduct(id);
-
-    return index !== -1 ? { ...product } : undefined;
+  async find(id: string): Promise<Product> {
+    try {
+      return await this.productsRepository.findOneOrFail(id);
+    } catch (e) {
+      // ToDo: Log Error
+      return undefined;
+    }
   }
 
-  findAll(): Product[] {
-    return [...this.products];
-  }
-
-  private findProduct(id: string): [Product, number] {
-    const productIndex = this.products.findIndex(p => p.id === id);
-    const product = this.products[productIndex];
-    return [product, productIndex];
+  findAll(): Promise<Product[]> {
+    return this.productsRepository.find();
   }
 }

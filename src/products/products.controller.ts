@@ -6,15 +6,17 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
-  getProducts(): object {
+  async getProducts(): Promise<object> {
+    const products = await this.productsService.findAll();
+
     return {
-      data: this.productsService.findAll()
+      data: products
     };
   }
 
   @Get(":id")
-  getProductById(@Param("id") id: string): object {
-    const product = this.productsService.find(id);
+  async getProductById(@Param("id") id: string): Promise<object> {
+    const product = await this.productsService.find(id);
 
     if (!product) {
       throw new NotFoundException("Product not found");
@@ -26,17 +28,17 @@ export class ProductsController {
   }
 
   @Post()
-  postProduct(@Body("name") name: string): object {
-    const id = this.productsService.create(name);
+  async postProduct(@Body("name") name: string): Promise<object> {
+    const newProduct = await this.productsService.create(name);
 
     return {
-      data: id
+      data: newProduct
     };
   }
 
   @Patch(":id")
-  updateProduct(@Param("id") id: string, @Body("name") name: string): object {
-    const updatedProduct = this.productsService.update(id, name);
+  async updateProduct(@Param("id") id: string, @Body("name") name: string): Promise<object> {
+    const updatedProduct = await this.productsService.update(id, name);
 
     if (!updatedProduct) {
       throw new NotFoundException("Product not found");
@@ -48,8 +50,8 @@ export class ProductsController {
   }
 
   @Delete(":id")
-  deleteProduct(@Param("id") id: string) {
-    const deleteProduct = this.productsService.delete(id);
+  async deleteProduct(@Param("id") id: string): Promise<object> {
+    const deleteProduct = await this.productsService.delete(id);
 
     if (!deleteProduct) {
       throw new NotFoundException("Product not found");
