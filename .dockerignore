@@ -6,3 +6,5 @@
 /dist
 /README.md
 /Dockerfile
+
+/k8s

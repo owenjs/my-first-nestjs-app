@@ -11,4 +11,4 @@ RUN yarn install
 COPY . .
 
 EXPOSE 3000
-CMD ["sh", "-c", "yarn run prebuild && yarn run build && yarn run start:prod"]
+CMD ["sh", "-c", "yarn run build && yarn run start:prod"]
