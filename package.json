@@ -24,11 +24,18 @@
     "migration:run": "yarn run build && yarn run typeorm migration:run"
   },
   "dependencies": {
+    "@nestjs/apollo": "^10.0.5",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
+    "@nestjs/graphql": "^10.0.5",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^8.0.3",
+    "apollo-server-express": "^3.6.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2",
     "config": "^3.3.7",
+    "graphql": "^16.3.0",
+    "graphql-tools": "^8.2.0",
     "js-yaml": "^4.1.0",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
