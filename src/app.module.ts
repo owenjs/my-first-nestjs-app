@@ -9,6 +9,7 @@ import { PetsModule } from "./pets/pets.module";
 import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 import { OwnersModule } from "./owners/owners.module";
+import { UsersModule } from "./users/users.module";
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { OwnersModule } from "./owners/owners.module";
     TypeOrmModule.forRoot(ormconfig),
     ProductsModule,
     PetsModule,
-    OwnersModule
+    OwnersModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService]
