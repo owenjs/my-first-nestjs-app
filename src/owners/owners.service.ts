@@ -16,12 +16,16 @@ export class OwnersService {
   }
 
   findAll(): Promise<Owner[]> {
-    return this.ownerRepository.find();
+    return this.ownerRepository.find({
+      relations: ["pets"]
+    });
   }
 
   async findOne(id: number): Promise<Owner> {
     try {
-      return await this.ownerRepository.findOneOrFail(id);
+      return await this.ownerRepository.findOneOrFail(id, {
+        relations: ["pets"]
+      });
     } catch (e) {
       // ToDo: Log Error
       return undefined;
